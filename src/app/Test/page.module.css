@@ -1,0 +1,10 @@
+
+.h1{
+	font-size: 50px;
+	color: #ff00ff;
+	margin:32px;
+	padding: 16px;
+	border: 2px solid #ccc;
+	border-radius: 15%;
+	width: 120px;
+}
