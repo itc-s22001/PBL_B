@@ -1,6 +1,6 @@
 
 .h1{
-	font-size: 50px;
+	font-size: 70px;
 	margin:200px;
 	text-align: center;
 	padding: 16px;
@@ -20,6 +20,6 @@
 	border: 2px solid #E05600; /* 枠線の色 */
 	font-size: 50px; /* テキストサイズを大きくする */
 	cursor: pointer;
-	background-color: #E05600;
+	background-color: #FF5E00;
 	color: #ffffff;
 }
