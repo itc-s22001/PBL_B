@@ -1,0 +1,35 @@
+.h1 {
+	font-size: 70px;
+	margin: 100px;
+	padding: 16px;
+	text-align: center; /* テキストを中央揃え */
+	width: auto;
+	border: none; /* 枠線を削除 */
+  }
+  
+  .buttonContainer {
+	display: flex;
+	justify-content: center; /* ボタンを水平中央に配置 */
+	gap: 16px; /* ボタン間の間隔 */
+	margin-top: 18px; /* ボタンの上部の余白 */
+  }
+  
+  .button {
+	padding: 100px 120px; /* ボタンのパディングを調整して大きくする */
+	min-width: 300px;
+	border-radius: 15px; /* 角丸 */
+	border: 2px solid #E05600; /* 枠線の色 */
+	font-size: 50px; /* テキストサイズを大きくする */
+	cursor: pointer;
+  }
+  
+  .buttonA {
+	background-color: #FF5E00; /* Aボタンの背景色 */
+	color: white; /* Aボタンのテキスト色 */
+  }
+  
+  .buttonB {
+	background-color: white; /* Bボタンの背景色 */
+	color: #FF5E00; /* Bボタンのテキスト色 */
+  }
+  
