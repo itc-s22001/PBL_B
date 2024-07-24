@@ -1,0 +1,179 @@
+/* .h1 {
+    font-size: 40px;
+    margin: 20px;
+    padding: 16px;
+    text-align: center;
+    width: auto;
+    border: none;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 18px;
+  }
+  
+  .button {
+    padding: 10px 30px;
+    min-width: 150px;
+    border-radius: 15px;
+    border: 2px solid #E05600;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .buttonA {
+    background-color: #FF5E00;
+    color: white;
+  }
+  
+  .buttonB {
+    background-color: white;
+    color: #FF5E00;
+  }
+  
+  .container {
+    padding: 20px;
+  }
+  
+  .select {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .table th, .table td {
+    border: 1px solid #E05600;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .table th {
+    background-color: #FF5E00;
+    color: white;
+  }
+  
+  .table td {
+    background-color: #FFF;
+  }
+  
+  .table td:nth-child(4) {
+    color: #E05600;
+  }
+  
+  .returnButton {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .returnButton button {
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: #FF5E00;
+    color: white;
+  }
+   */
+
+   .h1 {
+    font-size: 40px;
+    margin: 20px;
+    padding: 16px;
+    text-align: center;
+    width: auto;
+    border: none;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 18px;
+  }
+  
+  .button {
+    padding: 10px 30px;
+    min-width: 150px;
+    border-radius: 15px;
+    border: 2px solid #E05600;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .buttonA {
+    background-color: #FF5E00;
+    color: white;
+  }
+  
+  .buttonB {
+    background-color: white;
+    color: #FF5E00;
+  }
+  
+  /* New Styles */
+  .container {
+    padding: 20px;
+  }
+  
+  .select {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .tableContainer {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .table th, .table td {
+    border: 1px solid #E05600;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .table th {
+    background-color: #FF5E00;
+    color: white;
+  }
+  
+  .table td {
+    background-color: #FFF;
+  }
+  
+  .table td:nth-child(4) {
+    color: #E05600;
+  }
+  
+  .returnButton {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .returnButton button {
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: #FF5E00;
+    color: white;
+  }
+  
