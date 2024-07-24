@@ -1,6 +1,6 @@
 // pages/index.js
-
 import styles from './page.module.css';
+import Link from "next/link";
 
 // 仮の学生データ（実際はデータベースから取得する）
 const students = [
@@ -34,8 +34,12 @@ const Home = () => (
             </table>
         </div>
         <div className={styles.buttonContainer}>
-            <button className={`${styles.button} ${styles.buttonA}`}>新規登録</button>
-            <button className={`${styles.button} ${styles.buttonB}`}> TOPに戻る</button>
+            <Link href="/complete_register">
+                <button className={`${styles.button} ${styles.buttonA}`}>登録する</button>
+            </Link>
+            <Link href="/teacher">
+                <button className={`${styles.button} ${styles.buttonB}`}> TOPに戻る</button>
+            </Link>
         </div>
     </div>
 );
