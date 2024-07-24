@@ -1,0 +1,25 @@
+
+.h1{
+	font-size: 70px;
+	margin:200px;
+	text-align: center;
+	padding: 16px;
+	width: auto;
+}
+
+.buttonContainer {
+	display: flex;
+	justify-content: center; /* ボタンを水平中央に配置 */
+	gap: 16px; /* ボタン間の間隔 */
+	margin-top: 18px; /* ボタンの上部の余白 */
+}
+
+.button {
+	padding: 60px 120px; /* ボタンのパディングを調整して大きくする */
+	border-radius: 15px; /* 角丸 */
+	border: 2px solid #E05600; /* 枠線の色 */
+	font-size: 50px; /* テキストサイズを大きくする */
+	cursor: pointer;
+	background-color: #FF5E00;
+	color: #ffffff;
+}
