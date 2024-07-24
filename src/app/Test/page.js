@@ -29,10 +29,13 @@ const Test = () => {
 
 	const postData = async () => {
 		try {
-			const res = await axios.post('/api', {test: "test"});
+			const res = await axios.post('/api', {
+				student_id: "s00000"
+			});
 			const data = await res.data;
 			setPostMsg(data.msg)
-			console.log("postMsg:", data)
+			console.log("postMsg: ", data)
+			console.log("post.data.student_id: ", data.data.student_id)
 		}catch (e) {
 			console.log(e)
 		}
