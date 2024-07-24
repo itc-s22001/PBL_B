@@ -40,7 +40,7 @@
 
 // export default CheckAttend;
 
-
+import Link from "next/link";
 import s from './page.module.css';
 
 const Test = () => {
@@ -137,9 +137,11 @@ const Test = () => {
           </tbody>
         </table>
       </div>
-      <div className={s.returnButton}>
-        <button>TOPに戻る</button>
-      </div>
+        <div className={s.returnButton}>
+          <Link href="/teacher">
+            <button>TOPに戻る</button>
+          </Link>
+        </div>
     </div>
   );
 };

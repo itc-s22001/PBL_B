@@ -14,8 +14,8 @@ const StudentsLogin = () => {
 			</div>
 
 			<div className={s.inputControlPassword}>
-			<labal htmlFor="FirstName" className="form-label required">　パスワード　</labal>
-			<input type="text" placeholder="パスワードを入力してください(半角英数字)" className={s.Forminput}/>
+				<labal htmlFor="FirstName" className="form-label required">　パスワード　</labal>
+				<input type="text" placeholder="パスワードを入力してください(半角英数字)" className={s.Forminput}/>
 			</div>
 
 			<div>
@@ -23,9 +23,9 @@ const StudentsLogin = () => {
 					<button className={`${s.button} ${s.buttonA}`}>ログイン</button>
 				</p>
 			</div>
-			</>
-			);
-			};
+		</>
+	);
+};
 
 // 名前付きエクスポート
 export default StudentsLogin
