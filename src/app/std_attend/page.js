@@ -2,18 +2,27 @@ import React from 'react';
 import s from './page.module.css';
 
 const StudentsLogin = () => {
-	// ここに3年生が色々書きます
-	// コメントアウト
+    // 出席ボタンが押されたときの処理
+    const handleAttendanceClick = () => {
+        console.log("出席ボタンが押されました");
+        window.location.href = './complete_register'; // 相対パスで移動
+    };
 
-	return (
-		<>
-			<div className={s.inputControlNumber}>
-				<label htmlFor="FirstName" className="form-label required">学籍番号:</label>
-			</div>
+    // 欠席ボタンが押されたときの処理
+    const handleAbsenceClick = () => {
+        console.log("欠席ボタンが押されました");
+        window.location.href = './complete_register'; // 相対パスで移動
+    };
 
-			<div className={s.inputControlName}>
-			    <labal htmlFor="FirstName" className="form-label required">名前:</labal>
-			</div>
+    return (
+        <>
+            <div className={s.inputControlNumber}>
+                <label htmlFor="FirstName" className="form-label required">学籍番号:</label>
+            </div>
+
+            <div className={s.inputControlName}>
+                <label htmlFor="FirstName" className="form-label required">名前:</label>
+            </div>
 
             <div className={s.inputControlClassContainer}>
                 <div className={s.inputControlClass}>
@@ -26,16 +35,13 @@ const StudentsLogin = () => {
                 </select>
             </div>
 
-			<div>
-				<p className={s.buttonContainer}>
-					<button className={`${s.button} ${s.buttonA}`}>出席</button>
-                    <button className={`${s.button} ${s.buttonA}`}>欠席</button>
-
-				</p>
-			</div>
-			</>
-			);
-			};
+            <div className={s.buttonContainer}>
+                <button className={`${s.button} ${s.buttonA}`} onClick={handleAttendanceClick}>出席</button>
+                <button className={`${s.button} ${s.buttonA}`} onClick={handleAbsenceClick}>欠席</button>
+            </div>
+        </>
+    );
+};
 
 // 名前付きエクスポート
-export default StudentsLogin
+export default StudentsLogin;

@@ -6,7 +6,7 @@
 	text-align: center;
 	padding: 16px;
 	width: auto;
-	margin-left: -500px;
+	margin-left: -600px;
 }
 
 
@@ -17,7 +17,7 @@
 	text-align: center;
 	padding: 16px;
 	width: auto;
-	margin-left: -400px;
+	margin-left: -620px;
 }
 .inputControlClassContainer {
     display: flex;
@@ -64,7 +64,7 @@
 }
 
 .button {
-	padding: 30px 120px; /* ボタンのパディングを調整して大きくする */
+	padding: 10px 120px; /* ボタンのパディングを調整して大きくする */
 	border-radius: 15px; /* 角丸 */
 	border: 2px solid #E05600; /* 枠線の色 */
 	font-size: 50px; /* テキストサイズを大きくする */
