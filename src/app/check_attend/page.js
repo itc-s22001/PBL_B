@@ -6,15 +6,15 @@ import {useState, useEffect} from "react";
 
 //firebase
 import {db} from "../firebase";
-import {collection, query, where, getDocs} from "firebase/firestore";
+import {collection, query, where, doc, getDoc, getDocs} from "firebase/firestore";
 
 const CheckAttend = () => {
+  const PBL_ID = "UJxHrzU9mWMirirlq65O"
+
   //state
+  const [classes, setClasses] = useState([]);
+  const [className, setClassName] = useState('');
   const [attendanceData, setAttendanceData] = useState([]);
-  const [student_uid, setStudentUid] = useState('');
-  const [class_id, setClassId] = useState('');
-  const [date, setDate] = useState('');
-  const [status, setStatus] = useState('');
 
   //DBから出席情報呼び出す
   const getAttendanceData = async () => {
@@ -22,54 +22,87 @@ const CheckAttend = () => {
     const querySnapshot = await getDocs(collection(db, "attendance"));
     querySnapshot.forEach((doc) => {
       const data = doc.data();
-      setStudentUid(data.student_uid);
-      setClassId(data.class_id);
-      setDate(data.date);
-      setStatus(data.status);
-
-      //console
-      console.log(`student_uid: ${data.student_uid}, class_id: ${data.class_id}, date: ${data.date}, status: ${data.status}`);
-
     })}catch (e) {
       console.log(e)
     };
   }
 
-  //
-  const fetchData = async () => {
+  const getClassName = async () => {
     try {
-      const classQuery = query(collection(db, "class"), where("id", "==", "UJxHrzU9mWMirirlq65O"));
+      //classコレクションからデータ取得
+      const classCollection = collection(db, "class");
+      //クエリ
+      const classQuery = query(classCollection);
       const classSnapshot = await getDocs(classQuery);
+      const classList = classSnapshot.docs.map(doc => doc.data());
+      // dataをreturn
+      return classList;
 
-      if (!classSnapshot.empty) {
-        const attendanceQuery = query(collection(db, "attendance"), where("class_id", "==", "UJxHrzU9mWMirirlq65O"));
-        const attendanceSnapshot = await getDocs(attendanceQuery);
-        const attendanceList = attendanceSnapshot.docs.map(doc => doc.data());
-
-        setAttendanceData(attendanceList);  // 取得したデータを状態にセット
-      } else {
-        console.log("No class document found.");
-      }
-
-    } catch (e) {
-     console.log(e)
+    }catch (e) {
+      console.log(e)
     }
-    };
+  }
+
+  const fetchAttendanceData = async () => {
+    try {
+      // attendanceコレクションからデータを取得
+      const attendanceCollection = collection(db, "attendance");
+      // class_idがPBLのやつ
+      const attendanceQuery = query(attendanceCollection, where("class_id", "==", PBL_ID));
+      const attendanceSnapshot = await getDocs(attendanceQuery);
+
+      // 結果を処理
+      attendanceSnapshot.forEach((doc) => {
+        console.log("attendance data:", doc.data())
+      });
+    }catch (e) {
+     console.log(e);
+    }
 
 
+      // const attendanceList = await Promise.all(attendanceSnapshot.docs.map(async (docSnapshot) => {
+      //   const data = docSnapshot.data();
+      //   const studentUid = data.student_uid;
+      //
+      //   // userコレクションから対応するユーザーのnameを取得
+      //   const userRef = doc(db, "user", studentUid);
+      //   const user = await getDoc(userRef);
+      //
+      //   if (user.exists()) {
+      //     const userData = user.data();
+      //     return {
+      //       ...data,
+      //       student_name: userData.name,  // userコレクションのnameフィールドを追加
+      //     };
+      //   } else {
+      //     return {
+      //       ...data,
+      //       student_name: "Unknown",  // ユーザーが存在しない場合の処理
+      //     };
+      //   }
+      // }));
+      // console.log("username", user.student_name)
+      // setAttendanceData(attendanceList);
+  };
 
 
   useEffect(() => {
-    getAttendanceData();
-    // console.log(attendanceData)
-    // fetchData();
+    getClassName().then(
+        data => {
+          console.log(data)
+          setClasses(data)
+        }
+    );
+    // fetchAttendanceData();
   }, []);
 
   return (
     <div className={s.container}>
       <p className={s.h1}>出席状況を確認する</p>
       <select className={s.select}>
-        <option>PBL</option>
+        {classes.map((classes) => (
+            <option key={classes.id} value={classes.className}>{classes.className}</option>
+        ))}
       </select>
       <div className={s.tableContainer}>
         <table className={s.table}>
