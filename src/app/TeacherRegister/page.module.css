@@ -1,0 +1,107 @@
+
+.h1{
+    color: #FF5E00;
+    width: 400px;
+    border-bottom: #FF5E00 1px solid;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    font-size: 35px;
+}
+
+.container {
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    color: black;
+    font-size: 25px;
+}
+
+.enlarge {
+    margin-top: 100px;
+    overflow-x: auto; /* 横方向のスクロールを許可 */
+    display: inline-block; /* テーブルを中央に寄せるために必要 */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+    text-align: center;
+}
+
+.table {
+    width: 900px; /* 表の幅をピクセルで指定 */
+    height: 150px;
+    border-collapse: collapse; /* セルの境界を取り除く */
+    font-size: 24px; /* テーブルのフォントサイズを大きく設定 */
+    border-radius: 10px; /* 角を丸める */
+    overflow: hidden; /* 内部の要素がはみ出す場合は隠す */
+    table-layout: fixed; /* テーブルの幅を固定する */
+}
+
+.label, .labelOrange {
+    font-weight: bold;
+    padding: 16px; /* セルの上下のパディングを増やしてセルを縦に大きくする */
+    text-align: right; /* ラベルを右寄せにする */
+    background-color: #f2f2f2; /* ラベルの背景色 */
+    white-space: nowrap; /* テキストが長くなった場合に改行しないようにする */
+    width: 30%; /* ラベルの幅を調整 */
+    border: 1px solid white; /* 白い線でセルを囲む */
+}
+
+.value, .valueOrange {
+    padding: 16px; /* セルの上下のパディングを増やしてセルを縦に大きくする */
+    text-align: left; /* 値を左寄せにする */
+    border-bottom: 1px solid #ddd; /* 値の下に線を引く */
+    overflow-wrap: break-word; /* 長い文字列を適切に改行する */
+    border: 1px solid white; /* 白い線でセルを囲む */
+}
+
+.labelOrange {
+    background-color: #ff5e00; /* オレンジ色の背景色 */
+    color: white; /* 文字色を白に設定 */
+    font-size: 30px;
+    text-align: center;
+}
+
+.valueOrange {
+    background-color: #f2f2f2; /* 値の背景色を薄い灰色に設定 */
+    color: #333; /* 文字色を灰色に設定 */
+    text-align: center;
+    font-size: 35px;
+}
+
+.input{
+    background-color: #f2f2f2; /* 値の背景色を薄い灰色に設定 */
+    color: #333; /* 文字色を灰色に設定 */
+    text-align: center;
+    font-size: 35px;
+    border: none;
+    outline: none;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center; /* ボタンを水平中央に配置 */
+    gap: 16px; /* ボタン間の間隔 */
+    margin-top: 100px; /* ボタンの上部の余白 */
+}
+
+.button {
+    padding: 30px 80px; /* ボタンのパディングを調整して大きくする */
+    min-width: 300px;
+    border-radius: 15px; /* 角丸 */
+    border: 2px solid #E05600; /* 枠線の色 */
+    font-size: 50px; /* テキストサイズを大きくする */
+    cursor: pointer;
+}
+
+.buttonA {
+    background-color: #FF5E00; /* Aボタンの背景色 */
+    color: white; /* Aボタンのテキスト色 */
+}
+
+.buttonB {
+    background-color: white; /* Bボタンの背景色 */
+    color: #FF5E00; /* Bボタンのテキスト色 */
+}
+
+
