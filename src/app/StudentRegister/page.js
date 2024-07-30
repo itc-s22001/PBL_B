@@ -28,6 +28,8 @@ const Home = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    //教師か生徒か
+    const [isTeacher, setIsTeacher] = useState(false);
 
     // 生徒をDBに登録
     const addStudent = async (ev) => {
@@ -61,6 +63,8 @@ const Home = () => {
             student_id,
             name,
             email,
+            //教師か生徒か
+            isTeacher
             });
 
             //set state
@@ -68,6 +72,8 @@ const Home = () => {
             setName('')
             setEmail('');
             setPassword('');
+            //教師か生徒か
+            setIsTeacher(false)
 
             //画面遷移
             router.push('/complete_register');
