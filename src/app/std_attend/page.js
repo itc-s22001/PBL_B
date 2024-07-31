@@ -1,7 +1,8 @@
 import React from 'react';
+import Link from 'next/link'
 import s from './page.module.css';
 
-const StudentsLogin = () => {
+const std_attend = () => {
 	// ここに3年生が色々書きます
 	// コメントアウト
 
@@ -28,14 +29,17 @@ const StudentsLogin = () => {
 
 			<div>
 				<p className={s.buttonContainer}>
-					<button className={`${s.button} ${s.buttonA}`}>出席</button>
-                    <button className={`${s.button} ${s.buttonA}`}>欠席</button>
-
+					<Link href="/complete_attend" className={`${s.button} ${s.buttonA}`}>
+						出席
+					</Link>
+					<Link href="/complete_attend" className={`${s.button} ${s.buttonA}`}>
+						欠席
+					</Link>
 				</p>
 			</div>
-			</>
-			);
-			};
+		</>
+	);
+};
 
 // 名前付きエクスポート
-export default StudentsLogin
+export default std_attend
