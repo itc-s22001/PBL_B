@@ -77,36 +77,10 @@ const CheckAttend = () => {
       attendanceSnapshot.forEach((doc) => {
         console.log("attendance data:", doc.data())
       });
-    }catch (e) {
-     console.log(e);
+    } catch (e) {
+      console.log(e);
     }
-
-
-      // const attendanceList = await Promise.all(attendanceSnapshot.docs.map(async (docSnapshot) => {
-      //   const data = docSnapshot.data();
-      //   const studentUid = data.student_uid;
-      //
-      //   // userコレクションから対応するユーザーのnameを取得
-      //   const userRef = doc(db, "user", studentUid);
-      //   const user = await getDoc(userRef);
-      //
-      //   if (user.exists()) {
-      //     const userData = user.data();
-      //     return {
-      //       ...data,
-      //       student_name: userData.name,  // userコレクションのnameフィールドを追加
-      //     };
-      //   } else {
-      //     return {
-      //       ...data,
-      //       student_name: "Unknown",  // ユーザーが存在しない場合の処理
-      //     };
-      //   }
-      // }));
-      // console.log("username", user.student_name)
-      // setAttendanceData(attendanceList);
-  };
-
+  }
 
   //use effect
   useEffect(() => {
@@ -153,7 +127,7 @@ const CheckAttend = () => {
               <tr key={attendance.id}>
                 <td>{new Date(attendance.date.seconds * 1000).toLocaleDateString()}</td>
                 <td>{attendance.student_uid}</td>
-                <td>{/* 名前フィールドが必要ならここに追加 */}</td>
+                <td>{/* 名前フィールド */}</td>
                 <td>{attendance.status}</td>
               </tr>
             ))}
