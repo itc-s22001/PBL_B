@@ -1,55 +1,130 @@
-// import s from './page.module.css';
-
-// const CheckAttend = () => {
-//   return (
-//     <div className={s.container}>
-//       <p className={s.h1}>出席状況を確認する</p>
-//       <select className={s.select}>
-//         <option>PBL</option>
-//       </select>
-//       <table className={s.table}>
-//         <thead>
-//           <tr>
-//             <th>日付</th>
-//             <th>学籍番号</th>
-//             <th>名前</th>
-//             <th>ステータス</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           <tr>
-//             <td>2024/07/15 9:30:33</td>
-//             <td>s00000</td>
-//             <td>アイカレ太郎</td>
-//             <td>出席</td>
-//           </tr>
-//           <tr>
-//             <td>2024/07/15 9:30:34</td>
-//             <td>s00001</td>
-//             <td>アイカレ花子</td>
-//             <td>欠席</td>
-//           </tr>
-//         </tbody>
-//       </table>
-//       <div className={s.returnButton}>
-//         <button>TOPに戻る</button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default CheckAttend;
+"use client";
 
 import Link from "next/link";
 import s from './page.module.css';
+import { useState, useEffect } from "react";
 
-const Test = () => {
+//firebase
+import { db } from "../firebase";
+import { collection, query, where, getDocs } from "firebase/firestore";
+
+const CheckAttend = () => {
+  //state
+  const [classes, setClasses] = useState([]);
+  const [attendanceData, setAttendanceData] = useState([]);
+  const [userMap, setUserMap] = useState({});
+  const [selectedClassId, setSelectedClassId] = useState(null);
+
+  //DBから出席情報呼び出す
+  const getAttendanceData = async (classId) => {
+    try {
+      //attendanceコレクションからデータ取得
+      const attendanceCollection = collection(db, "attendance");
+      //クエリ　class_idフィールドの値がclassIdと一致するものだけとってくる
+      const attendanceQuery = query(attendanceCollection, where("class_id", "==", classId));
+      const attendanceSnapshot = await getDocs(attendanceQuery);
+      const attendanceList = attendanceSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      //return data
+      return attendanceList;
+    } catch (e) {
+      console.log(e);
+      return [];
+    }
+  };
+
+  //user id
+  const getUserByUid = async (uid) => {
+    try {
+      //userコレクションからデータ取得
+      const userCollection = collection(db, "user");
+      //クエリ　uidフィールドの値がuidと一致するものだけとってくる
+      const userQuery = query(userCollection, where("uid", "==", uid));
+      const userSnapshot = await getDocs(userQuery);
+      const userList = userSnapshot.docs.map(doc => doc.data());
+      return userList.length > 0 ? userList[0] : null;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  };
+
+  //DBからクラス名持ってくる
+  const getClassName = async () => {
+    try {
+      //classコレクションからデータ取得
+      const classCollection = collection(db, "class");
+      //クエリ
+      const classQuery = query(classCollection);
+      const classSnapshot = await getDocs(classQuery);
+      const classList = classSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      return classList;
+    } catch (e) {
+      console.log(e);
+      return [];
+    }
+  };
+
+const fetchUserDetails = async (attendanceList) => {
+  const userMapTemp = {};
+  for (const attendance of attendanceList) {
+    if (!userMapTemp[attendance.student_uid]) {
+      const userData = await getUserByUid(attendance.student_uid);
+      if (userData) {
+        userMapTemp[attendance.student_uid] = {
+          name: userData.name,
+          student_id: userData.student_id
+        };
+      } else {
+        userMapTemp[attendance.student_uid] = {
+          name: "Unknown",
+          student_id: "Unknown"
+        };
+      }
+    }
+  }
+  setUserMap(userMapTemp);
+}
+
+const fetchAttendanceData = async (classId) => {
+  const data = await getAttendanceData(classId);
+  setAttendanceData(data);
+  await fetchUserDetails(data);
+};
+
+  // 初期データを取得
+  useEffect(() => {
+    const fetchData = async () => {
+      const classesData = await getClassName();
+      setClasses(classesData);
+      if (classesData.length > 0) {
+        setSelectedClassId(classesData[0].id); // 初期クラスIDを設定
+      }
+    };
+    fetchData();
+  }, []);
+
+  // クラスIDが選択されたときに出席データを取得
+  useEffect(() => {
+    if (selectedClassId) {
+      fetchAttendanceData(selectedClassId);
+    }
+  }, [selectedClassId]);
+
   return (
     <div className={s.container}>
       <p className={s.h1}>出席状況を確認する</p>
-      <select className={s.select}>
-        <option>PBL</option>
+
+      {/*DBから授業名を持ってくる*/}
+      <select
+        className={s.select}
+        value={selectedClassId || ""}
+        onChange={(e) => setSelectedClassId(e.target.value)}
+      >
+        {classes.map((cls) => (
+          <option key={cls.id} value={cls.id}>{cls.className}</option>
+        ))}
       </select>
+
       <div className={s.tableContainer}>
         <table className={s.table}>
           <thead>
@@ -60,90 +135,27 @@ const Test = () => {
               <th>ステータス</th>
             </tr>
           </thead>
+
+          {/*DBから出席状況持ってくる*/}
           <tbody>
-            <tr>
-              <td>2024/07/15 9:30:33</td>
-              <td>s00000</td>
-              <td>アイカレ太郎</td>
-              <td>出席</td>
-            </tr>
-            <tr>
-              <td>2024/07/15 9:30:34</td>
-              <td>s00001</td>
-              <td>アイカレ花子</td>
-              <td>欠席</td>
-            </tr>
-            <tr>
-              <td>2024/07/15 9:30:33</td>
-              <td>s00000</td>
-              <td>アイカレ太郎</td>
-              <td>出席</td>
-            </tr>
-            <tr>
-              <td>2024/07/15 9:30:34</td>
-              <td>s00001</td>
-              <td>アイカレ花子</td>
-              <td>欠席</td>
-            </tr>
-            <tr>
-              <td>2024/07/15 9:30:33</td>
-              <td>s00000</td>
-              <td>アイカレ太郎</td>
-              <td>出席</td>
-            </tr>
-            <tr>
-              <td>2024/07/15 9:30:34</td>
-              <td>s00001</td>
-              <td>アイカレ花子</td>
-              <td>欠席</td>
-            </tr>
-            <tr>
-              <td>2024/07/15 9:30:33</td>
-              <td>s00000</td>
-              <td>アイカレ太郎</td>
-              <td>出席</td>
-            </tr>
-            <tr>
-              <td>2024/07/15 9:30:34</td>
-              <td>s00001</td>
-              <td>アイカレ花子</td>
-              <td>欠席</td>
-            </tr>
-            <tr>
-              <td>2024/07/15 9:30:33</td>
-              <td>s00000</td>
-              <td>アイカレ太郎</td>
-              <td>出席</td>
-            </tr>
-            <tr>
-              <td>2024/07/15 9:30:34</td>
-              <td>s00001</td>
-              <td>アイカレ花子</td>
-              <td>欠席</td>
-            </tr>
-            <tr>
-              <td>2024/07/15 9:30:33</td>
-              <td>s00000</td>
-              <td>アイカレ太郎</td>
-              <td>出席</td>
-            </tr>
-            <tr>
-              <td>2024/07/15 9:30:34</td>
-              <td>s00001</td>
-              <td>アイカレ花子</td>
-              <td>欠席</td>
-            </tr>
-            {/* Add more rows as needed */}
+            {attendanceData.map((attendance) => (
+              <tr key={attendance.id}>
+                <td>{new Date(attendance.date.seconds * 1000).toLocaleString() || "Loading..."}</td>
+                <td>{userMap[attendance.student_uid]?.student_id || "Loading..."}</td>
+                <td>{userMap[attendance.student_uid]?.name || "Loading..."}</td>
+                <td>{attendance.status || "Loading..."}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
-        <div className={s.returnButton}>
-          <Link href="/teacher">
-            <button>TOPに戻る</button>
-          </Link>
-        </div>
+      <div className={s.returnButton}>
+        <Link href="/teacher">
+          <button>TOPに戻る</button>
+        </Link>
+      </div>
     </div>
   );
 };
 
-export default Test;
+export default CheckAttend;
