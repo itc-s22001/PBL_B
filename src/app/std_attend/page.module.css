@@ -1,0 +1,74 @@
+
+.inputControlNumber{
+	font-size: 50px;
+	margin-bottom:30px;
+	margin-top:200px;
+	text-align: center;
+	padding: 16px;
+	width: auto;
+	margin-left: -500px;
+}
+
+
+.inputControlName{
+	font-size: 50px;
+	margin-top:20px;
+	margin-bottom:100px;
+	text-align: center;
+	padding: 16px;
+	width: auto;
+	margin-left: -400px;
+}
+.inputControlClassContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 100px;
+    justify-content: center;
+    margin-left: -100px;
+}
+
+.inputControlClass {
+    font-size: 50px;
+    text-align: center;
+    padding: 16px;
+    width: auto;
+    margin-right: 20px; /* プルダウンとの間隔 */
+}
+
+.dropdown {
+    font-size: 50px;
+    padding: 16px;
+    border-radius: 15px;
+    width: 500px;
+}
+
+.Forminput{
+	font-size: 50px;
+	margin:10px;
+	text-align: center;
+	padding: 16px;
+	width: auto;
+	border-radius: 15px;
+}
+
+.Forminput::placeholder{
+	font-size: 25px;
+}
+
+.buttonContainer {
+	display: flex;
+	justify-content: center; /* ボタンを水平中央に配置 */
+	gap: 128px; /* ボタン間の間隔 */
+	margin-top: 18px; /* ボタンの上部の余白 */
+}
+
+.button {
+	padding: 30px 120px; /* ボタンのパディングを調整して大きくする */
+	border-radius: 15px; /* 角丸 */
+	border: 2px solid #E05600; /* 枠線の色 */
+	font-size: 50px; /* テキストサイズを大きくする */
+	cursor: pointer;
+	background-color: #FF5E00;
+	color: #ffffff;
+}
