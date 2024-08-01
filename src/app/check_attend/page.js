@@ -64,34 +64,46 @@ const CheckAttend = () => {
     }
   };
 
-  const fetchUserNames = async (attendanceList) => {
-    const userMapTemp = {};
-    for (const attendance of attendanceList) {
-      if (!userMapTemp[attendance.student_uid]) {
-        const userData = await getUserByUid(attendance.student_uid);
-        userMapTemp[attendance.student_uid] = userData ? userData.name : "Unknown";
+const fetchUserDetails = async (attendanceList) => {
+  const userMapTemp = {};
+  for (const attendance of attendanceList) {
+    if (!userMapTemp[attendance.student_uid]) {
+      const userData = await getUserByUid(attendance.student_uid);
+      if (userData) {
+        userMapTemp[attendance.student_uid] = {
+          name: userData.name,
+          student_id: userData.student_id
+        };
+      } else {
+        userMapTemp[attendance.student_uid] = {
+          name: "Unknown",
+          student_id: "Unknown"
+        };
       }
     }
-    setUserMap(userMapTemp);
-  };
+  }
+  setUserMap(userMapTemp);
+}
 
-  const fetchAttendanceData = async (classId) => {
-    const data = await getAttendanceData(classId);
-    setAttendanceData(data);
-    await fetchUserNames(data);
-  };
+const fetchAttendanceData = async (classId) => {
+  const data = await getAttendanceData(classId);
+  setAttendanceData(data);
+  await fetchUserDetails(data);
+};
 
+  // 初期データを取得
   useEffect(() => {
     const fetchData = async () => {
       const classesData = await getClassName();
       setClasses(classesData);
       if (classesData.length > 0) {
-        setSelectedClassId(classesData[0].id);
+        setSelectedClassId(classesData[0].id); // 初期クラスIDを設定
       }
     };
     fetchData();
   }, []);
 
+  // クラスIDが選択されたときに出席データを取得
   useEffect(() => {
     if (selectedClassId) {
       fetchAttendanceData(selectedClassId);
@@ -128,10 +140,10 @@ const CheckAttend = () => {
           <tbody>
             {attendanceData.map((attendance) => (
               <tr key={attendance.id}>
-                <td>{new Date(attendance.date.seconds * 1000).toLocaleString()}</td>
-                <td>{attendance.student_uid}</td>
-                <td>{userMap[attendance.student_uid] || "Loading..."}</td>
-                <td>{attendance.status}</td>
+                <td>{new Date(attendance.date.seconds * 1000).toLocaleString() || "Loading..."}</td>
+                <td>{userMap[attendance.student_uid]?.student_id || "Loading..."}</td>
+                <td>{userMap[attendance.student_uid]?.name || "Loading..."}</td>
+                <td>{attendance.status || "Loading..."}</td>
               </tr>
             ))}
           </tbody>
