@@ -41,16 +41,20 @@ const StudentsLogin = () => {
 		//メールとパスワードでログイン
 		try {
 			await signInWithEmailAndPassword(auth, email, password)
+			const userData = await fetchUserData(email);
 
 			// データベースからデータの取得
-			const querySnapshot = await getDocs(collection(db, "user"));
-			const tasks = querySnapshot.docs.map((doc) => doc.data());
-			console.log(tasks[0].email)
+			// const querySnapshot = await getDocs(collection(db, "user"));
+			// const tasks = querySnapshot.docs.map((doc) => doc.data());
+			// console.log(
+			// 	tasks[1].email,
+			// 	tasks[1].name,
+			// 	tasks[1].student_id)
 
-			if (email === "taro@test.com") {
-				router.push(`/teacher`) //教員でログイン時の遷移先
+			if (userData && userData.isTeacher) {
+				router.push('/teacher'); // 教員でログイン時の遷移先
 			} else {
-				router.push(`/complete_attend`); // ログイン成功後に遷移する
+				router.push('/std_check'); // 学生でログイン時の遷移先
 			}
 		} catch (error) {
 			console.error("エラーです", error);
@@ -66,12 +70,17 @@ const StudentsLogin = () => {
 	};
 	const fetchUserData = async (email) => {
 		const db = getFirestore();
-		const q = query(collection(db, "users"), where("email", "==", email));
+		const q = query(collection(db, "user"), where("email", "==", email));
 		const querySnapshot = await getDocs(q);
-		querySnapshot.forEach((doc) => {
-			setUser(doc.data());
-		});
-	}
+	
+		if (!querySnapshot.empty) {
+			const userData = querySnapshot.docs[0].data();
+			setUser(userData); // 状態にユーザーデータを設定
+			return userData;
+		} else {
+			return null;
+		}
+	};
 
 
 	return (
@@ -102,14 +111,14 @@ const StudentsLogin = () => {
 					</p>
 				</div>
 			</form>
-			{user && (
+			{/* {user && (
 				<div>
 					<h1>ユーザー情報</h1>
-					<p>ID: {user.id}</p>
+					<p>ID: {user.student_id}</p>
 					<p>名前: {user.name}</p>
 					<p>メール: {user.email}</p>
 				</div>
-			)}
+			)} */}
 		</>
 	);
 };
