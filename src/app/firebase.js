@@ -3,13 +3,13 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth"
 import { getFirestore } from "firebase/firestore"
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAVeiBDTeXc-AFD9Ovmu78if_UjfQftmRQ",
-    authDomain: "rollcallapp-413c8.firebaseapp.com",
-    projectId: "rollcallapp-413c8",
-    storageBucket: "rollcallapp-413c8.appspot.com",
-    messagingSenderId: "835301614681",
-    appId: "1:835301614681:web:f34d132c763271acf23d48",
-    measurementId: "G-1HSQ4YJSG6"
+    apiKey: process.env.NEXT_PUBLIC_APIKEY,
+    authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN,
+    projectId: process.env.NEXT_PUBLIC_PROJECTID,
+    storageBucket: process.env.NEXT_PUBLIC_STORAGEBUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_MESSAGINGSENDERID,
+    appId: process.env.NEXT_PUBLIC_APPID,
+    measurementId: process.env.NEXT_PUBLIC_MEASUREMENTID 
 };
 
 const app = initializeApp(firebaseConfig);
