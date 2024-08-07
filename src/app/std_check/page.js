@@ -3,6 +3,7 @@
 import s from './page.module.css';
 import { useState, useEffect } from 'react';
 import { auth, db } from '../firebase';
+import { useRouter } from 'next/navigation'; // useRouterをインポート
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
 
@@ -10,6 +11,7 @@ const StdCheck = () => {
     const [selectedClass, setSelectedClass] = useState('');
     const [studentId, setStudentId] = useState('');
     const [studentName, setStudentName] = useState('');
+    const router = useRouter(); // useRouterのインスタンスを作成
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -58,6 +60,7 @@ const StdCheck = () => {
         try {
             await addDoc(collection(db, "attendance"), attendanceData);
             alert("データが保存されました");
+            router.push('/complete_attend'); // データ保存後にリダイレクト
         } catch (error) {
             console.error("エラーが発生しました: ", error);
             alert("データの保存に失敗しました");
