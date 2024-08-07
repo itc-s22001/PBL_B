@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -14,7 +14,7 @@ const StdAttend = () => {
   useEffect(() => {
     const fetchStudentData = async () => {
       if (!auth.currentUser) {
-        router.push('/LoginScreen'); // ログインページにリダイレクト
+        router.push('/students_login'); // ログインページにリダイレクト
         return;
       }
 
@@ -26,7 +26,6 @@ const StdAttend = () => {
           setStudent(userSnapshot.data());
         } else {
           console.error('User not found');
-          // ユーザーが見つからない場合の処理
           alert('ユーザー情報が見つかりません');
         }
       } catch (error) {
@@ -70,12 +69,12 @@ const StdAttend = () => {
     <>
       <div className={s.inputControlNumber}>
         <label htmlFor="StudentNumber" className="form-label required">学籍番号:</label>
-        <span>{student.student_id}</span>
+        <input type="text" value="123456" readOnly className={s.readOnlyInput} />
       </div>
 
       <div className={s.inputControlName}>
         <label htmlFor="StudentName" className="form-label required">名前:</label>
-        <span>{student.name}</span>
+        <input type="text" value="山田太郎" readOnly className={s.readOnlyInput} />
       </div>
 
       <div className={s.inputControlClassContainer}>

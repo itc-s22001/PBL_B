@@ -1,70 +1,63 @@
-.h1 {
-	font-size: 70px;
-	margin: 100px;
-	padding: 16px;
-	text-align: center; /* テキストを中央揃え */
-	width: auto;
-	border: none; /* 枠線を削除 */
-	position: relative;
-	left: -200px; /* テキストを少し左に移動させる */
-  }
-
-  .h2 {
-	font-size: 70px;
-	margin: 100px;
-	padding: 16px;
-	text-align: center; /* テキストを中央揃え */
-	width: auto;
-	border: none; /* 枠線を削除 */
-  }
-  
-  .h3 {
-	font-size: 70px;
-	margin: 100px;
-	padding: 16px;
-	text-align: center; /* テキストを中央揃え */
-	width: auto;
-	border: none; /* 枠線を削除 */
-  }
-
-  /* page.module.css */
 .container {
     display: flex;
-    align-items: center;
+    flex-direction: column; /* 縦並びにする */
+    align-items: center; /* 中央揃え */
+    justify-content: center; /* 垂直方向の中央揃え */
+    min-height: 100vh; /* ビューポートの高さに合わせる */
+    text-align: center; /* テキストを中央揃え */
+}
+
+.inputControl {
+    display: flex;
+    align-items: center; /* 垂直方向の中央揃え */
+    margin-bottom: 16px; /* 必要に応じて調整 */
+}
+
+.inputLabel {
+    font-size: 50px; /* ラベルのフォントサイズを調整 */
+    margin-right: 10px; /* ラベルと入力フィールドの間隔 */
 }
 
 .readOnlyInput {
-    margin-left: 10px; /* 必要に応じて調整 */
-    padding: 5px; /* 必要に応じて調整 */
+    padding: 5px;
     border: 2px solid #000;
     background-color: #f9f9f9;
     color: #333;
-    font-size: 16px; /* 必要に応じて調整 */
-	border-radius: 4px;
+    font-size: 30px;
+    border-radius: 4px;
 }
 
-  .buttonContainer {
-	display: flex;
-	justify-content: center; /* ボタンを水平中央に配置 */
-	gap: 200px; /* ボタン間の間隔 */
-	margin-top: 18px; /* ボタンの上部の余白 */
-  }
-  
-  .button {
-	padding: 20px 120px; /* ボタンのパディングを調整して大きくする */
-	border-radius: 15px; /* 角丸 */
-	border: 2px solid #E05600; /* 枠線の色 */
-	font-size: 50px; /* テキストサイズを大きくする */
-	cursor: pointer;
-  }
-  
-  .buttonA {
-	background-color: #FF5E00; /* Aボタンの背景色 */
-	color: white; /* Aボタンのテキスト色 */
-  }
-  
-  .buttonB {
-	background-color: #FF5E00; /* Bボタンの背景色 */
-	color: white; /* Bボタンのテキスト色 */
-  }
-  
+.dropdown {
+    padding: 5px;
+    border: 2px solid #000;
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 30px;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center; /* ボタンを水平中央に配置 */
+    gap: 20px; /* ボタン間の間隔 */
+    margin-top: 18px; /* ボタンの上部の余白 */
+}
+
+.button {
+    padding: 20px 120px; /* ボタンのパディングを調整して大きくする */
+    border-radius: 15px; /* 角丸 */
+    border: 2px solid #E05600; /* 枠線の色 */
+    font-size: 50px; /* テキストサイズを大きくする */
+    cursor: pointer;
+}
+
+.buttonA {
+    background-color: #FF5E00; /* Aボタンの背景色 */
+    color: white; /* Aボタンのテキスト色 */
+}
+
+.buttonB {
+    background-color: #FF5E00; /* Bボタンの背景色 */
+    color: white; /* Bボタンのテキスト色 */
+}
