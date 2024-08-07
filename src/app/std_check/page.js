@@ -1,10 +1,38 @@
-'use client'; // クライアントコンポーネントとしてマーク
+'use client';
 
 import s from './page.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { auth, db } from '../firebase';
+import { onAuthStateChanged } from "firebase/auth";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
-const Test = () => {
-    const [selectedClass, setSelectedClass] = useState(''); // selectedClass を定義
+const StdCheck = () => {
+    const [selectedClass, setSelectedClass] = useState('');
+    const [studentId, setStudentId] = useState('');
+    const [studentName, setStudentName] = useState('');
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const userData = await fetchUserData(user.email);
+                if (userData) {
+                    setStudentId(userData.student_id);
+                    setStudentName(userData.name);
+                }
+            }
+        });
+        return () => unsubscribe();
+    }, []);
+
+    const fetchUserData = async (email) => {
+        const q = query(collection(db, "user"), where("email", "==", email));
+        const querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+            return querySnapshot.docs[0].data();
+        } else {
+            return null;
+        }
+    };
 
     const handleClassChange = (e) => {
         setSelectedClass(e.target.value);
@@ -14,11 +42,11 @@ const Test = () => {
         <div className={s.container}>
             <div className={s.inputControl}>
                 <p className={s.inputLabel}>学籍番号：</p>
-                <input type="text" value="123456" readOnly className={s.readOnlyInput} />
+                <input type="text" value={studentId} readOnly className={s.readOnlyInput} />
             </div>
             <div className={s.inputControl}>
                 <p className={s.inputLabel}>名前：</p>
-                <input type="text" value="山田太郎" readOnly className={s.readOnlyInput} />
+                <input type="text" value={studentName} readOnly className={s.readOnlyInput} />
             </div>
             <div className={s.inputControl}>
                 <p className={s.inputLabel}>授業：</p>
@@ -41,4 +69,4 @@ const Test = () => {
     );
 };
 
-export default Test;
+export default StdCheck;
