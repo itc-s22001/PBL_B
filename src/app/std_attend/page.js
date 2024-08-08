@@ -1,9 +1,44 @@
-import React from 'react';
+"use client";
+
+import React, {useEffect, useState} from 'react';
 import s from './page.module.css';
+import {collection, getDocs, query} from "firebase/firestore";
+import {db} from "@/app/firebase";
+
 
 const StudentsLogin = () => {
 	// ここに3年生が色々書きます
 	// コメントアウト
+  //state
+  const [classes, setClasses] = useState([]);
+  const [selectedClassId, setSelectedClassId] = useState(null);
+
+  const getClassName = async () => {
+    try {
+      //classコレクションからデータ取得
+      const classCollection = collection(db, "class");
+      //クエリ
+      const classQuery = query(classCollection);
+      const classSnapshot = await getDocs(classQuery);
+      const classList = classSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      return classList;
+    } catch (e) {
+      console.log(e);
+      return [];
+    }
+  };
+
+  // 初期データを取得
+  useEffect(() => {
+    const fetchData = async () => {
+      const classesData = await getClassName();
+      setClasses(classesData);
+      if (classesData.length > 0) {
+        setSelectedClassId(classesData[0].id); // 初期クラスIDを設定
+      }
+    };
+    fetchData();
+  }, []);
 
 	return (
 		<>
@@ -19,10 +54,8 @@ const StudentsLogin = () => {
                 <div className={s.inputControlClass}>
                     <label htmlFor="Class" className="form-label required">授業:</label>
                 </div>
-                <select className={s.dropdown} id="Class">
-                    <option value="class1">PBL</option>
-                    <option value="class2">Java</option>
-                    <option value="class3">Secure Program</option>
+                <select className={s.dropdown} id="Class" value={selectedClassId || ""} onChange={(e) => setSelectedClassId(e.target.value)}>
+                    {classes.map((cls) => (<option key={cls.id} value={cls.id}>{cls.className}</option>))}
                 </select>
             </div>
 
