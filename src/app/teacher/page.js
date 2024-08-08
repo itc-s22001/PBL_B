@@ -5,32 +5,32 @@ import Link from "next/link";
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged } from 'firebase/auth';
-import {getFirestore, doc, getDoc, query, collection, where, getDocs} from 'firebase/firestore';
+import { getFirestore, doc, getDoc, query, collection, where, getDocs } from 'firebase/firestore';
 import { db, auth } from '@/app/firebase';
 
 const Teacher = () => {
-  //state
+  // state
   const [userId, setUserId] = useState(null);
   const [isTeacher, setIsTeacher] = useState(null);
   const router = useRouter();
 
   const getUserId = async (user) => {
     if (user) {
-      const userDoc = await getDoc(doc(db,'user',user.email))
+      const userDoc = await getDoc(doc(db, 'user', user.email));
       return userDoc.id;
     }
   }
 
-  //user情報をemailからとってくる
+  // user情報をemailからとってくる
   const getUserByEmail = async (email) => {
     try {
-      //userコレクションからデータ取得
+      // userコレクションからデータ取得
       const userCollection = collection(db, "user");
-      //クエリ　uidフィールドの値がuidと一致するものだけとってくる
+      // クエリ　uidフィールドの値がuidと一致するものだけとってくる
       const userQuery = query(userCollection, where("email", "==", email));
       const userSnapshot = await getDocs(userQuery);
       const userList = userSnapshot.docs.map(doc => doc.data());
-      console.log("userList:", userList)
+      console.log("userList:", userList);
       return userList.length > 0 ? userList[0] : null;
     } catch (e) {
       console.log(e);
@@ -38,25 +38,20 @@ const Teacher = () => {
     }
   };
 
-  //   const unsubscribe = onAuthStateChanged(auth, async (user) => {
-  //     const id = await getUserId(user);
-  //     setUserId(id);
-  // });
-  //
-  //   useEffect(() => {
-  //     unsubscribe
-  //     getUserByEmail(userId)
-  //   })
-    useEffect(() => {
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      const id = await getUserId(user);
-      setUserId(id);
+      if (user) {
+        const id = await getUserId(user);
+        setUserId(id);
+      } else {
+        router.push('/');
+      }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [router]);
 
-    useEffect(() => {
+  useEffect(() => {
     const fetchUserData = async () => {
       if (userId) {
         const user = await getUserByEmail(userId);
@@ -65,6 +60,8 @@ const Teacher = () => {
           if (!user.isTeacher) {
             router.push('/');
           }
+        } else {
+          router.push('/');
         }
       }
     };
@@ -73,7 +70,11 @@ const Teacher = () => {
   }, [userId, router]);
 
   if (isTeacher === null) {
-    return <div>Loading...</div>; // ローディング状態を表示
+    return <div style={{fontSize:'50px', margin:'32px auto 32px', width:'30%', padding:'10px', textAlign:'center', borderBottom:'2px solid #FF5E00'}}>Loading...</div>; // ローディング状態を表示
+  }
+
+  if (!isTeacher) {
+    return null; // isTeacher=falseのユーザーの場合何も表示しない
   }
 
   return (
