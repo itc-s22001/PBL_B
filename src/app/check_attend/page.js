@@ -64,7 +64,8 @@ const CheckAttend = () => {
     }
   };
 
-const fetchUserDetails = async (attendanceList) => {
+  //user
+  const fetchUserDetails = async (attendanceList) => {
   const userMapTemp = {};
   for (const attendance of attendanceList) {
     if (!userMapTemp[attendance.student_uid]) {
