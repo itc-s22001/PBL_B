@@ -4,41 +4,76 @@ import s from './page.module.css';
 import Link from "next/link";
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, doc, getDoc } from 'firebase/firestore';
-import { db } from '@/app/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+import {getFirestore, doc, getDoc, query, collection, where, getDocs} from 'firebase/firestore';
+import { db, auth } from '@/app/firebase';
 
 const Teacher = () => {
-  const [loading, setLoading] = useState(true);
+  //state
+  const [userId, setUserId] = useState(null);
+  const [isTeacher, setIsTeacher] = useState(null);
   const router = useRouter();
 
-  useEffect(() => {
-    const auth = getAuth();
+  const getUserId = async (user) => {
+    if (user) {
+      const userDoc = await getDoc(doc(db,'user',user.email))
+      return userDoc.id;
+    }
+  }
 
-    const checkUser = async (user) => {
-      if (user) {
-        const userDoc = await getDoc(doc(db, 'user', user.uid));
-        if (userDoc.exists() && userDoc.data().isTeacher) {
-          setLoading(false); // ロード終了
-        } else {
-          setLoading(false);
-          await router.replace('/'); // 権限がない場合はリダイレクト
-        }
-      } else {
-        // setLoading(false);
-        // await router.replace('/'); // ログインしていない場合はリダイレクト
-      }
-    };
+  //user情報をemailからとってくる
+  const getUserByEmail = async (email) => {
+    try {
+      //userコレクションからデータ取得
+      const userCollection = collection(db, "user");
+      //クエリ　uidフィールドの値がuidと一致するものだけとってくる
+      const userQuery = query(userCollection, where("email", "==", email));
+      const userSnapshot = await getDocs(userQuery);
+      const userList = userSnapshot.docs.map(doc => doc.data());
+      console.log("userList:", userList)
+      return userList.length > 0 ? userList[0] : null;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  };
 
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      checkUser(user);
+  //   const unsubscribe = onAuthStateChanged(auth, async (user) => {
+  //     const id = await getUserId(user);
+  //     setUserId(id);
+  // });
+  //
+  //   useEffect(() => {
+  //     unsubscribe
+  //     getUserByEmail(userId)
+  //   })
+    useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      const id = await getUserId(user);
+      setUserId(id);
     });
 
     return () => unsubscribe();
-  }, [router]);
+  }, []);
 
-  if (loading) {
-    return <p>Loading...</p>;
+    useEffect(() => {
+    const fetchUserData = async () => {
+      if (userId) {
+        const user = await getUserByEmail(userId);
+        if (user) {
+          setIsTeacher(user.isTeacher);
+          if (!user.isTeacher) {
+            router.push('/');
+          }
+        }
+      }
+    };
+
+    fetchUserData();
+  }, [userId, router]);
+
+  if (isTeacher === null) {
+    return <div>Loading...</div>; // ローディング状態を表示
   }
 
   return (
