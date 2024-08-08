@@ -3,7 +3,7 @@
 import s from './page.module.css';
 import { useState, useEffect } from 'react';
 import { auth, db } from '../firebase';
-import { useRouter } from 'next/navigation'; // useRouterをインポート
+import { useRouter } from 'next/navigation';
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
 
@@ -11,7 +11,8 @@ const StdCheck = () => {
     const [selectedClass, setSelectedClass] = useState('');
     const [studentId, setStudentId] = useState('');
     const [studentName, setStudentName] = useState('');
-    const router = useRouter(); // useRouterのインスタンスを作成
+    const [classes, setClasses] = useState([]);
+    const router = useRouter();
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -23,6 +24,9 @@ const StdCheck = () => {
                 }
             }
         });
+
+        fetchClasses();
+
         return () => unsubscribe();
     }, []);
 
@@ -36,6 +40,14 @@ const StdCheck = () => {
         }
     };
 
+    const fetchClasses = async () => {
+        const classCollection = collection(db, "class");
+        const classQuery = query(classCollection);
+        const classSnapshot = await getDocs(classQuery);
+        const classList = classSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setClasses(classList);
+    };
+
     const handleClassChange = (e) => {
         setSelectedClass(e.target.value);
     };
@@ -43,7 +55,7 @@ const StdCheck = () => {
     const formatDate = (date) => {
         const options = {
             year: 'numeric',
-            month: 'long',
+            month: 'numeric',
             day: 'numeric',
             hour: 'numeric',
             minute: 'numeric',
@@ -65,10 +77,9 @@ const StdCheck = () => {
 
         const attendanceData = {
             student_id: studentId,
-            name: studentName,
             status: status,
             date: formattedDate,
-            class: selectedClass
+            class_id: selectedClass
         };
 
         try {
@@ -99,9 +110,9 @@ const StdCheck = () => {
                     onChange={handleClassChange}
                 >
                     <option value="">選択してください</option>
-                    <option value="PBL">PBL</option>
-                    <option value="Java">Java</option>
-                    <option value="Secure Program">Secure Program</option>
+                    {classes.map((cls) => (
+                        <option key={cls.id} value={cls.id}>{cls.className}</option>
+                    ))}
                 </select>
             </div>
             <div className={s.buttonContainer}>
