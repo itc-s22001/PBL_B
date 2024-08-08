@@ -40,6 +40,20 @@ const StdCheck = () => {
         setSelectedClass(e.target.value);
     };
 
+    const formatDate = (date) => {
+        const options = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            timeZone: 'Asia/Tokyo',
+            timeZoneName: 'short'
+        };
+        return new Intl.DateTimeFormat('ja-JP', options).format(date);
+    };
+
     const handleAttendance = async (status) => {
         if (!selectedClass) {
             alert("授業を選択してください");
@@ -47,13 +61,13 @@ const StdCheck = () => {
         }
 
         const now = new Date();
-        const timestamp = now.toISOString();
+        const formattedDate = formatDate(now);
 
         const attendanceData = {
             student_id: studentId,
             name: studentName,
             status: status,
-            timestamp: timestamp,
+            date: formattedDate,
             class: selectedClass
         };
 
