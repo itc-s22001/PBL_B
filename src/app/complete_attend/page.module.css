@@ -23,3 +23,6 @@
 	background-color: #FF5E00;
 	color: #ffffff;
 }
+.button:hover {
+	opacity: 0.5;
+}

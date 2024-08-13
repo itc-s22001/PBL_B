@@ -97,7 +97,7 @@ const StudentsLogin = () => {
 				</div>
 
 				<div className={s.inputControlPassword}>
-					<labal htmlFor="FirstName" className="form-label required">　パスワード　</labal>
+					<label htmlFor="FirstName" className="form-label required">　パスワード　</label>
 					<input type="password"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}

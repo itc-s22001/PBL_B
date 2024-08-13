@@ -61,3 +61,9 @@
     background-color: #FF5E00; /* Bボタンの背景色 */
     color: white; /* Bボタンのテキスト色 */
 }
+.buttonA:hover {
+    opacity: 0.5;
+}
+.buttonB:hover {
+    opacity: 0.5;
+}

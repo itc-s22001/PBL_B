@@ -44,3 +44,8 @@
 	background-color: #FF5E00;
 	color: #ffffff;
 }
+.button:hover {
+	/* background-color: rgb(152, 152, 246); */
+	/* background-color: #a0928d; */
+	opacity: 0.5;
+}
