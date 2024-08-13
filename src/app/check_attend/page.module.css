@@ -167,6 +167,12 @@
     justify-content: center;
     margin-top: 20px;
   }
+
+  .returnButton2 {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
   
   .returnButton button {
     padding: 10px 20px;
@@ -177,4 +183,21 @@
     background-color: #FF5E00;
     color: white;
   }
+
+  .returnButton button:hover {
+    opacity: 0.5;
+  }
   
+  .returnButton2 button {
+    padding: 10px 11px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: #FF5E00;
+    color: white;
+  }
+
+  .returnButton2 button:hover {
+    opacity: 0.5;
+  }

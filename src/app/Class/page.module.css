@@ -91,5 +91,8 @@
     background-color: white; /* Bボタンの背景色 */
     color: #FF5E00; /* Bボタンのテキスト色 */
 }
+.button:hover {
+    opacity: 0.5;
+}
 
 

@@ -5,7 +5,7 @@ import s from './page.module.css';
 const Top = () => {
 	return (
 		<>
-			<p className={s.h1}>出席完了しました</p>
+			<p className={s.h1}>完了しました</p>
 			<div>
 				<p className={s.buttonContainer}>
 					<Link href="/students_login">

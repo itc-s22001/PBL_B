@@ -1,47 +1,74 @@
 .h1 {
-	font-size: 70px;
-	margin: 100px;
-	padding: 16px;
-	text-align: center; /* テキストを中央揃え */
-	width: auto;
-	border: none; /* 枠線を削除 */
-  }
-  
-  .buttonContainer {
-	display: flex;
-	justify-content: center; /* ボタンを水平中央に配置 */
-	gap: 16px; /* ボタン間の間隔 */
-	margin-top: 18px; /* ボタンの上部の余白 */
-  }
-  
-  .button {
-	padding: 80px 120px; /* ボタンのパディングを調整して大きくする */
-	border-radius: 15px; /* 角丸 */
-	border: 2px solid #E05600; /* 枠線の色 */
-	font-size: 50px; /* テキストサイズを大きくする */
-	cursor: pointer;
-  }
-  
-  .buttonA {
-	background-color: #FF5E00; /* Aボタンの背景色 */
-	color: white; /* Aボタンのテキスト色 */
-	height: 100%;
-  }
-  
-  .buttonB {
-	background-color: white; /* Bボタンの背景色 */
-	color: #FF5E00; /* Bボタンのテキスト色 */
-	margin-bottom: 5px;
-  }
+  font-size: 70px;
+  margin: 100px;
+  padding: 16px;
+  text-align: center; /* テキストを中央揃え */
+  width: auto;
+  border: none; /* 枠線を削除 */
+}
 
- .buttonC {
-	background-color: white; /* Bボタンの背景色 */
-	color: #FF5E00; /* Bボタンのテキスト色 */
-	margin-top: 5px;
- }
+.buttonContainer {
+  display: flex;
+  justify-content: center; /* ボタンを水平中央に配置 */
+  gap: 16px; /* ボタン間の間隔 */
+  margin-top: 18px; /* ボタンの上部の余白 */
+}
+.buttonContainer2 {
+  display: flex;
+  justify-content: center; /* ボタンを水平中央に配置 */
+  gap: 16px; /* ボタン間の間隔 */
+  margin-top: 18px; /* ボタンの上部の余白 */
+}
 
+.button {
+  padding: 80px 120px; /* ボタンのパディングを調整して大きくする */
+  border-radius: 15px; /* 角丸 */
+  border: 2px solid #e05600; /* 枠線の色 */
+  font-size: 50px; /* テキストサイズを大きくする */
+  cursor: pointer;
+}
 
-  .register {
-	  display: flex;
-	  flex-flow: column;
-  }
+.buttonA {
+  background-color: #ff5e00; /* Aボタンの背景色 */
+  color: white; /* Aボタンのテキスト色 */
+  height: 100%;
+}
+
+.buttonB {
+  background-color: white; /* Bボタンの背景色 */
+  color: #ff5e00; /* Bボタンのテキスト色 */
+  margin-bottom: 5px;
+}
+
+.buttonC {
+  background-color: white; /* Bボタンの背景色 */
+  color: #ff5e00; /* Bボタンのテキスト色 */
+  margin-top: 5px;
+}
+
+.buttonD {
+  background-color: #ff5e00; /* Aボタンの背景色 */
+  color: white; /* Aボタンのテキスト色 */
+  margin-bottom: 10px;
+  margin-bottom: 5px;
+  width: 18em;
+  height: 2em;
+  padding: 5px;
+}
+
+.register {
+  display: flex;
+  flex-flow: column;
+}
+.buttonA:hover {
+  opacity: 0.5;
+}
+.buttonB:hover {
+  opacity: 0.5;
+}
+.buttonC:hover {
+  opacity: 0.5;
+}
+.buttonD:hover {
+  opacity: 0.5;
+}

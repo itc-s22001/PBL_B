@@ -70,7 +70,7 @@ const Teacher = () => {
   }, [userId, router]);
 
   if (isTeacher === null) {
-    return <div style={{fontSize:'50px', margin:'32px auto 32px', width:'30%', padding:'10px', textAlign:'center', borderBottom:'2px solid #FF5E00'}}>Loading...</div>; // ローディング状態を表示
+    return <div style={{ fontSize: '50px', margin: '32px auto 32px', width: '30%', padding: '10px', textAlign: 'center', borderBottom: '2px solid #FF5E00' }}>Loading...</div>; // ローディング状態を表示
   }
 
   if (!isTeacher) {
@@ -92,6 +92,11 @@ const Teacher = () => {
             <button className={`${s.button} ${s.buttonC}`}>授業登録</button>
           </Link>
         </div>
+      </div>
+      <div className={s.buttonContainer2}>
+        <Link href="/students_login">
+          <button className={`${s.button} ${s.buttonD}`}>ログインへ</button>
+        </Link>
       </div>
     </>
   );
