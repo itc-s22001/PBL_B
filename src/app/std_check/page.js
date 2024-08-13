@@ -5,18 +5,20 @@ import { useState, useEffect } from 'react';
 import { auth, db } from '../firebase';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged } from "firebase/auth";
-import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
+import { collection, query, where, getDocs, addDoc, Timestamp } from "firebase/firestore";  // Timestampをインポート
 
 const StdCheck = () => {
     const [selectedClass, setSelectedClass] = useState('');
     const [studentId, setStudentId] = useState('');
     const [studentName, setStudentName] = useState('');
     const [classes, setClasses] = useState([]);
+    const [userUid, setUserUid] = useState('');
     const router = useRouter();
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
+                setUserUid(user.uid); 
                 const userData = await fetchUserData(user.email);
                 if (userData) {
                     setStudentId(userData.student_id);
@@ -52,33 +54,19 @@ const StdCheck = () => {
         setSelectedClass(e.target.value);
     };
 
-    const formatDate = (date) => {
-        const options = {
-            year: 'numeric',
-            month: 'numeric',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric',
-            timeZone: 'Asia/Tokyo',
-            timeZoneName: 'short'
-        };
-        return new Intl.DateTimeFormat('ja-JP', options).format(date);
-    };
-
     const handleAttendance = async (status) => {
         if (!selectedClass) {
             alert("授業を選択してください");
             return;
         }
 
-        const now = new Date();
-        const formattedDate = formatDate(now);
+        // 現在の時刻を取得し、Firestore用のタイムスタンプを作成
+        const now = Timestamp.now();
 
         const attendanceData = {
-            student_id: studentId,
+            student_uid: userUid,  // ユーザーのUID
             status: status,
-            date: formattedDate,
+            date: now,  // Firestoreのタイムスタンプ形式で保存
             class_id: selectedClass
         };
 
