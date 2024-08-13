@@ -18,7 +18,7 @@
 
 .table {
     width: 900px; /* 表の幅をピクセルで指定 */
-    height: 650px;
+    height: 500px;
     border-collapse: collapse; /* セルの境界を取り除く */
     font-size: 24px; /* テーブルのフォントサイズを大きく設定 */
     border-radius: 10px; /* 角を丸める */
@@ -75,7 +75,8 @@
 }
 
 .button {
-    padding: 60px 80px; /* ボタンのパディングを調整して大きくする */
+    margin-top: 30px;
+    padding: 30px 80px; /* ボタンのパディングを調整して大きくする */
     min-width: 300px;
     border-radius: 15px; /* 角丸 */
     border: 2px solid #E05600; /* 枠線の色 */
